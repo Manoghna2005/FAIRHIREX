@@ -1,0 +1,6 @@
+{
+  "name": "FairHire-X",
+  "description": "An Explainable, Skill-Graph-Driven and Manipulation-Resistant AI Framework for Trustworthy Candidate–Job Matching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

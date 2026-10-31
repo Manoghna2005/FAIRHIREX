@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://fairhire:fairhire_secure_pass@db:5432/fairhire_x
+      - ENVIRONMENT=production
+      - SENTENCE_TRANSFORMER_MODEL=all-MiniLM-L6-v2
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=fairhire
+      - POSTGRES_PASSWORD=fairhire_secure_pass
+      - POSTGRES_DB=fairhire_x
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fairhire -d fairhire_x"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
